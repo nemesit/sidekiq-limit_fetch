@@ -34,7 +34,7 @@ module Sidekiq::LimitFetch
     if Sidekiq::BasicFetch.respond_to?(:bulk_requeue) # < 6.1.0
       Sidekiq::BasicFetch.bulk_requeue(*args)
     else # 6.1.0+
-      Sidekiq::BasicFetch.new(Sidekiq.options).bulk_requeue(*args)
+      Sidekiq::BasicFetch.new(Sidekiq).bulk_requeue(*args)
     end
   end
 
