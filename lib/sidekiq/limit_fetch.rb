@@ -25,7 +25,7 @@ module Sidekiq::LimitFetch
   def retrieve_work
     queue, job = redis_brpop(Queues.acquire)
     Queues.release_except(queue)
-    UnitOfWork.new(queue, job) if job
+    UnitOfWork.new(queue, job, Sidekiq) if job
   end
 
   # Backwards compatibility for sidekiq v6.1.0

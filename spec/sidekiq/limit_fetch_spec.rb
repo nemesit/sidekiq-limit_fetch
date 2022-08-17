@@ -6,7 +6,9 @@ RSpec.describe Sidekiq::LimitFetch do
   let(:limits) {{ 'queue1' => 1, 'queue2' => 2 }}
 
   before do
-    subject::Queues.start options
+    @config = Sidekiq
+    @config.merge!(options)
+    subject::Queues.start @config
 
     Sidekiq.redis do |it|
       it.del 'queue:queue1'
